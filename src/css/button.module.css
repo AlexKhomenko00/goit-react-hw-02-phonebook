@@ -1,0 +1,30 @@
+@value form-bg from './vars.module.css';
+@value form-shadow from './vars.module.css';
+@value form-primary-highlight from './vars.module.css';
+@value form-secondary-highlight from './vars.module.css';
+@value font-size from './vars.module.css';
+@value font-color from './vars.module.css';
+
+button {
+  display: block;
+  margin: 0 auto;
+  line-height: 28px;
+  padding: 0 20px;
+  background: form-shadow;
+  letter-spacing: 2px;
+  transition: 0.2s all ease-in-out;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 1);
+  box-shadow: 3px 3px 1px form-primary-highlight,
+    3px 3px 1px 1px rgba(0, 0, 0, 1);
+  cursor: pointer;
+}
+button:hover {
+  background: rgba(0, 0, 0, 1);
+  color: white;
+  border: 1px solid rgba(0, 0, 0, 1);
+}
+
+button::selection {
+  background: form-secondary-highlight;
+}

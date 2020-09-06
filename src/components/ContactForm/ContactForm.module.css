@@ -1,0 +1,19 @@
+@value form-bg: #f8f4e5;
+@value form-shadow: #ffa580;
+
+.contactUs {
+  font-weight: 700;
+  width: 400px;
+  margin: 0 auto;
+  background: form-bg;
+  padding: 50px 80px;
+  border: 2px solid rgba(0, 0, 0, 1);
+  box-shadow: 15px 15px 1px form-shadow, 15px 15px 1px 2px rgba(0, 0, 0, 1);
+}
+
+.ContactFormInput:valid {
+  border-bottom-color: lightgreen;
+}
+.ContactFormInput::placeholder {
+  font-weight: 700;
+}
