@@ -17,18 +17,22 @@ export default class App extends Component {
     ],
     filter: '',
   };
+
   changeFilter = filter => {
     this.setState({ filter });
   };
+
   getVisibleContacts = () => {
     const { contacts, filter } = this.state;
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(filter.toLowerCase()),
     );
   };
+
   addContact = (name, number) => {
     if (this.state.contacts.find(contact => contact.name === name)) {
-      return alert(`${name} already in contacts!`);
+      alert(`${name} already in contacts!`);
+      return;
     }
 
     const contact = {
@@ -43,24 +47,28 @@ export default class App extends Component {
       };
     });
   };
+
   removeContact = id => {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== id),
     }));
   };
+
   render() {
     const { contacts, filter } = this.state;
     const visibleContacts = this.getVisibleContacts();
+    const isShowFilter = contacts.length > 1;
+    const isShowContactList = contacts.length > 0;
     return (
       <>
         <Section title="Phonebook">
           <ContactForm onAddContact={this.addContact} />
         </Section>
         <Section title="Contacts">
-          {contacts.length > 1 && (
+          {isShowFilter && (
             <Filter value={filter} onChangeFilter={this.changeFilter} />
           )}
-          {contacts.length > 0 && (
+          {isShowContactList && (
             <ContactList
               contacts={visibleContacts}
               onRemoveContact={this.removeContact}

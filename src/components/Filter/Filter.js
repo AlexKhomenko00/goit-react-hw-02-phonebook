@@ -5,15 +5,13 @@ import s from './Filter.module.css';
 
 const Filter = ({ value, onChangeFilter }) => {
   return (
-    <>
-      <input
-        className={s.filterFormInput}
-        type="text"
-        placeholder="Find contacts by name..."
-        value={value}
-        onChange={e => onChangeFilter(e.target.value)}
-      ></input>
-    </>
+    <input
+      className={s.filterFormInput}
+      type="text"
+      placeholder="Find contacts by name..."
+      value={value}
+      onChange={({ target }) => onChangeFilter(target.value)}
+    />
   );
 };
 

@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 
 import s from './ContactForm.module.css';
 
+const INITITAL_STATE = {
+  name: '',
+  number: '',
+};
+
 class ContactFrom extends Component {
-  state = {
-    name: '',
-    number: '',
-  };
+  state = INITITAL_STATE;
   handleChange = ({ target }) => {
     const { name, value } = target;
     this.setState({
@@ -20,7 +22,7 @@ class ContactFrom extends Component {
     this.resetValue();
   };
   resetValue = () => {
-    this.setState({ name: '', number: '' });
+    this.setState(INITITAL_STATE);
   };
   render() {
     const { name, number } = this.state;
