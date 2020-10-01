@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { connect } from 'react-redux';
+
+import phonebookActions from '../../redux/phonebook/phonebookActions';
 
 import s from './ContactList.module.css';
 import fadeContact from './fade.module.css';
@@ -36,4 +39,13 @@ ContactList.propTypes = {
   onRemoveContact: PropTypes.func.isRequired,
 };
 
-export default ContactList;
+const MSTP = ({ phonebook }) => ({
+  contacts: phonebook.contacts.filter(contact =>
+    contact.name.toLowerCase().includes(phonebook.filter.toLowerCase()),
+  ),
+});
+const MDTP = {
+  onRemoveContact: phonebookActions.removeContact,
+};
+
+export default connect(MSTP, MDTP)(ContactList);

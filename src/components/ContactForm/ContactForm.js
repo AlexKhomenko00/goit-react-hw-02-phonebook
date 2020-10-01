@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import phonebookActions from '../../redux/phonebook/phonebookActions';
 
 import s from './ContactForm.module.css';
 
@@ -9,21 +11,25 @@ const INITITAL_STATE = {
 
 class ContactFrom extends Component {
   state = INITITAL_STATE;
+
   handleChange = ({ target }) => {
     const { name, value } = target;
     this.setState({
       [name]: value,
     });
   };
+
   handleSubmit = e => {
     e.preventDefault();
     const { name, number } = this.state;
     this.props.onAddContact(name, number);
     this.resetValue();
   };
+
   resetValue = () => {
     this.setState(INITITAL_STATE);
   };
+
   render() {
     const { name, number } = this.state;
     return (
@@ -58,4 +64,9 @@ class ContactFrom extends Component {
     );
   }
 }
-export default ContactFrom;
+
+const MDTP = {
+  onAddContact: phonebookActions.addContact,
+};
+
+export default connect(null, MDTP)(ContactFrom);

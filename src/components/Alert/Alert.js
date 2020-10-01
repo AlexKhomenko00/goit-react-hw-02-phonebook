@@ -1,9 +1,13 @@
-import React from 'react';
+import { NotificationManager } from 'react-notifications';
 
-import s from './Alert.module.css';
+import 'react-notifications/lib/notifications.css';
 
-const Alert = () => {
-  return <div className={s.alert}>Contact already exists!</div>;
+const Alert = name => {
+  return NotificationManager.error(
+    `Contact "${name}" already exists!`,
+    'Error!',
+    3000,
+  );
 };
 
 export default Alert;

@@ -1,17 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { CSSTransition } from 'react-transition-group';
+
+import phonebookActions from '../../redux/phonebook/phonebookActions';
 
 import s from './Filter.module.css';
+import fadeFilter from './fadeFilter.module.css';
 
 const Filter = ({ value, onChangeFilter }) => {
   return (
-    <input
-      className={s.filterFormInput}
-      type="text"
-      placeholder="Find contacts by name..."
-      value={value}
-      onChange={({ target }) => onChangeFilter(target.value)}
-    />
+    <CSSTransition
+      in={true}
+      timeout={300}
+      classNames={fadeFilter}
+      unmountOnExit
+    >
+      <input
+        className={s.filterFormInput}
+        type="text"
+        placeholder="Find contacts by name..."
+        value={value}
+        onChange={({ target }) => onChangeFilter(target.value)}
+      />
+    </CSSTransition>
   );
 };
 
@@ -22,8 +34,14 @@ Filter.defaultProps = {
 Filter.propTypes = {
   value: PropTypes.string.isRequired,
   onChangeFilter: PropTypes.func.isRequired,
-  // Немного глупый вопрос.
-  // В данном случаи функция является обязательной или нет?🧐
 };
 
-export default Filter;
+const MSTP = ({ phonebook }) => ({
+  value: phonebook.filter,
+});
+
+const MDTP = {
+  onChangeFilter: phonebookActions.changeFilter,
+};
+
+export default connect(MSTP, MDTP)(Filter);
