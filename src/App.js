@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import phonebookActions from './redux/phonebook/phonebookActions';
+import phonebookOperations from './redux/phonebook/phonebookOperations';
+import phonebookSelectors from './redux/phonebook/phonebookSelectors';
 
 import { NotificationContainer } from 'react-notifications';
 import Section from './components/Section';
@@ -10,22 +11,8 @@ import ContactList from './components/ContactList';
 import Filter from './components/Filter';
 
 class App extends Component {
-  state = {
-    isShowAlert: false,
-  };
-
   componentDidMount() {
-    const persistedContacts = localStorage.getItem('contacts');
-
-    if (persistedContacts) {
-      this.props.onUpdateFromLS(JSON.parse(persistedContacts));
-    }
-  }
-
-  componentDidUpdate({ contacts }) {
-    if (contacts !== this.props.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.props.contacts));
-    }
+    this.props.fetchContact();
   }
 
   render() {
@@ -47,11 +34,11 @@ class App extends Component {
   }
 }
 
-const MSTP = ({ phonebook }) => ({
-  contacts: phonebook.contacts,
+const MSTP = state => ({
+  contacts: phonebookSelectors.getAllContacts(state),
 });
 const MDTP = {
-  onUpdateFromLS: phonebookActions.updateFromLocaleStorage,
+  fetchContact: phonebookOperations.fetchContact,
 };
 
 export default connect(MSTP, MDTP)(App);

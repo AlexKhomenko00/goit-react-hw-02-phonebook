@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 
 import phonebookActions from '../../redux/phonebook/phonebookActions';
+import phonebookSelectors from '../../redux/phonebook/phonebookSelectors';
 
 import s from './Filter.module.css';
 import fadeFilter from './fadeFilter.module.css';
@@ -36,8 +37,8 @@ Filter.propTypes = {
   onChangeFilter: PropTypes.func.isRequired,
 };
 
-const MSTP = ({ phonebook }) => ({
-  value: phonebook.filter,
+const MSTP = state => ({
+  value: phonebookSelectors.getFilterValue(state),
 });
 
 const MDTP = {

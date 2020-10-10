@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import phonebookActions from '../../redux/phonebook/phonebookActions';
+import phonebookOperations from '../../redux/phonebook/phonebookOperations';
 
 import s from './ContactForm.module.css';
 
@@ -66,7 +66,7 @@ class ContactFrom extends Component {
 }
 
 const MDTP = {
-  onAddContact: phonebookActions.addContact,
+  onAddContact: phonebookOperations.addContact,
 };
 
 export default connect(null, MDTP)(ContactFrom);
