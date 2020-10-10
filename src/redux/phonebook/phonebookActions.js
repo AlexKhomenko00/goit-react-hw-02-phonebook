@@ -1,22 +1,29 @@
-import { v4 as uuidv4 } from 'uuid';
 import phonebookTypes from './phonebookTypes';
 import { createAction } from '@reduxjs/toolkit';
 
-const addContact = createAction(phonebookTypes.ADD, (name, number) => ({
-  payload: {
-    contact: { id: uuidv4(), name, number },
-  },
-}));
+const addContactStart = createAction('phonebook/addContactStart');
+const addContactSuccess = createAction('phonebook/addContactSuccess');
+const addContactError = createAction('phonebook/addContactError');
 
-const updateFromLocaleStorage = createAction(phonebookTypes.UPDATE_FROM_LS);
+const fetchContactStart = createAction('phonebook/fetchContactStart');
+const fetchContactSuccess = createAction('phonebook/fetchContactSuccess');
+const fetchContactError = createAction('phonebook/fetchContactError');
 
-const removeContact = createAction(phonebookTypes.REMOVE);
+const removeContactStart = createAction('phonebook/removeContactStart');
+const removeContactSuccess = createAction('phonebook/removeContactSuccess');
+const removeContactError = createAction('phonebook/removeContactError');
 
 const changeFilter = createAction(phonebookTypes.CHANGE_FILTER);
 
 export default {
-  addContact,
-  removeContact,
   changeFilter,
-  updateFromLocaleStorage,
+  addContactStart,
+  addContactSuccess,
+  addContactError,
+  removeContactStart,
+  removeContactSuccess,
+  removeContactError,
+  fetchContactStart,
+  fetchContactSuccess,
+  fetchContactError,
 };
