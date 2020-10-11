@@ -12,8 +12,11 @@ const getVisibleContacts = createSelector(
     ),
 );
 
+const getError = state => state.phonebook.error;
+
 export default {
   getAllContacts,
   getFilterValue,
   getVisibleContacts,
+  getError,
 };
