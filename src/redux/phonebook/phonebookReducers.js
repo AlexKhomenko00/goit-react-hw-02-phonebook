@@ -17,7 +17,19 @@ const filter = createReducer('', {
   [phonebookActions.changeFilter]: (state, { payload }) => payload,
 });
 
+const error = (state = null, { type, payload }) => {
+  switch (type) {
+    case (phonebookActions.addContactError,
+    phonebookActions.fetchContactError,
+    phonebookActions.removeContactError):
+      return payload;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   contacts,
   filter,
+  error,
 });

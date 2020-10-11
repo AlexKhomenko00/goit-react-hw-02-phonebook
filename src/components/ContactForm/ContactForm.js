@@ -1,72 +1,36 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import phonebookOperations from '../../redux/phonebook/phonebookOperations';
+import React from 'react';
 
 import s from './ContactForm.module.css';
 
-const INITITAL_STATE = {
-  name: '',
-  number: '',
-};
+const ContactForm = ({ name, number, handleChange, handleSubmit }) => (
+  <form className={s.contactUs} onSubmit={handleSubmit}>
+    <label>
+      Name
+      <input
+        type="text"
+        name="name"
+        value={name}
+        className={s.ContactFormInput}
+        required
+        onChange={handleChange}
+      ></input>
+    </label>
+    <label>
+      Number
+      <input
+        type="tel"
+        pattern="(\+?\d[- .]*){7,13}"
+        name="number"
+        required
+        className={s.ContactFormInput}
+        value={number}
+        onChange={handleChange}
+      ></input>
+    </label>
+    <button className={s.ContactFormButton} type="submit">
+      Add contact
+    </button>
+  </form>
+);
 
-class ContactFrom extends Component {
-  state = INITITAL_STATE;
-
-  handleChange = ({ target }) => {
-    const { name, value } = target;
-    this.setState({
-      [name]: value,
-    });
-  };
-
-  handleSubmit = e => {
-    e.preventDefault();
-    const { name, number } = this.state;
-    this.props.onAddContact(name, number);
-    this.resetValue();
-  };
-
-  resetValue = () => {
-    this.setState(INITITAL_STATE);
-  };
-
-  render() {
-    const { name, number } = this.state;
-    return (
-      <form className={s.contactUs} onSubmit={this.handleSubmit}>
-        <label>
-          Name
-          <input
-            type="text"
-            name="name"
-            value={name}
-            className={s.ContactFormInput}
-            required
-            onChange={this.handleChange}
-          ></input>
-        </label>
-        <label>
-          Number
-          <input
-            type="tel"
-            pattern="(\+?\d[- .]*){7,13}"
-            name="number"
-            required
-            className={s.ContactFormInput}
-            value={number}
-            onChange={this.handleChange}
-          ></input>
-        </label>
-        <button className={s.ContactFormButton} type="submit">
-          Add contact
-        </button>
-      </form>
-    );
-  }
-}
-
-const MDTP = {
-  onAddContact: phonebookOperations.addContact,
-};
-
-export default connect(null, MDTP)(ContactFrom);
+export default ContactForm;
