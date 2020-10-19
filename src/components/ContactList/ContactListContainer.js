@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 
-import phonebookOperations from '../../redux/phonebook/phonebookOperations';
-import phonebookSelectors from '../../redux/phonebook/phonebookSelectors';
+import { phonebookOperations, phonebookSelectors } from '../../redux/phonebook';
 
 import ContactList from './ContactList';
 

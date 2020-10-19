@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import phonebookOperations from '../../redux/phonebook/phonebookOperations';
+import { phonebookOperations } from '../../redux/phonebook';
 
 import ContactForm from './ContactForm';
 
@@ -23,7 +23,7 @@ class ContactFormContainer extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { name, number } = this.state;
-    this.props.onAddContact(name, number);
+    this.props.onAddContact({ name, number });
     this.resetValue();
   };
 

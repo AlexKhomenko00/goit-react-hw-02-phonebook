@@ -1,31 +1,52 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
+import { Switch } from 'react-router-dom';
+
+import { PrivateRoute, PublicRoute } from '../Routes';
 
 import { NotificationContainer } from 'react-notifications';
-import Section from '../Section';
-import ContactForm from '../ContactForm';
-import ContactList from '../ContactList';
-import Filter from '../Filter';
-import Error from '../Error';
+import Loader from 'react-loader-spinner';
 
-const App = props => {
-  const isShowFilter = props.contacts.length > 1;
-  const isShowContactsList = props.contacts.length > 0;
+import Container from '../Container';
+import AppBar from '../AppBar';
 
+const Phonebook = lazy(() => import('../Phonebook'));
+const Login = lazy(() => import('../Login'));
+const Register = lazy(() => import('../Register'));
+const HomePage = lazy(() => import('../HomePage'));
+
+const App = () => {
   return (
     <>
-      <Section title="Phonebook">
-        <ContactForm />
-      </Section>
-      {props.err ? (
-        <Error />
-      ) : (
-        <Section title="Contacts">
-          {isShowFilter && <Filter />}
-          {isShowContactsList && <ContactList />}
-        </Section>
-      )}
-
-      <NotificationContainer />
+      <Container>
+        <AppBar />
+        <Suspense
+          fallback={
+            <Loader type="Circles" color="#ffa580" height={100} width={100} />
+          }
+        >
+          <Switch>
+            <PublicRoute exact path="/" component={HomePage} />
+            <PublicRoute
+              path="/register"
+              restricted
+              redirectTo="/contacts"
+              component={Register}
+            />
+            <PublicRoute
+              path="/login"
+              restricted
+              redirectTo="/contacts"
+              component={Login}
+            />
+            <PrivateRoute
+              path="/contacts"
+              redirectTo="/login"
+              component={Phonebook}
+            />
+          </Switch>
+        </Suspense>
+        <NotificationContainer />
+      </Container>
     </>
   );
 };

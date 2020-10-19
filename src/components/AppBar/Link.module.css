@@ -1,0 +1,33 @@
+@value form-bg from '../../css/vars.module.css';
+@value form-shadow from '../../css/vars.module.css';
+@value form-primary-highlight from '../../css/vars.module.css';
+@value form-secondary-highlight from '../../css/vars.module.css';
+@value font-size from '../../css/vars.module.css';
+@value font-color from '../../css/vars.module.css';
+
+.link {
+  display: 'inline-block';
+  margin-right: 10px;
+  line-height: 28px;
+  padding: 0 20px;
+  text-decoration: none;
+  background: form-shadow;
+  letter-spacing: 2px;
+  transition: 0.2s all ease-in-out;
+  outline: none;
+  color: rgba(0, 0, 0, 1);
+  border: 1px solid rgba(0, 0, 0, 1);
+  box-shadow: 3px 3px 1px form-primary-highlight,
+    3px 3px 1px 1px rgba(0, 0, 0, 1);
+  cursor: pointer;
+}
+.link:hover,
+.linkActiv {
+  background: rgba(0, 0, 0, 1);
+  color: white;
+  border: 1px solid rgba(0, 0, 0, 1);
+}
+
+.link::selection {
+  background: form-secondary-highlight;
+}

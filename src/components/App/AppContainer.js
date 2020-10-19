@@ -1,26 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import phonebookOperations from '../../redux/phonebook/phonebookOperations';
-import phonebookSelectors from '../../redux/phonebook/phonebookSelectors';
+import { authOperations } from '../../redux/auth';
 
 import App from './App';
 
 class AppContainer extends Component {
   componentDidMount() {
-    this.props.fetchContact();
+    this.props.onGetCurrentUser();
   }
   render() {
     return <App {...this.props} />;
   }
 }
 
-const MSTP = state => ({
-  contacts: phonebookSelectors.getAllContacts(state),
-  err: phonebookSelectors.getError(state),
-});
 const MDTP = {
-  fetchContact: phonebookOperations.fetchContact,
+  onGetCurrentUser: authOperations.getCurrentUser,
 };
 
-export default connect(MSTP, MDTP)(AppContainer);
+export default connect(null, MDTP)(AppContainer);

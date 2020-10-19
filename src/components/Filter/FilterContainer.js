@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 
-import phonebookActions from '../../redux/phonebook/phonebookActions';
-import phonebookSelectors from '../../redux/phonebook/phonebookSelectors';
+import { phonebookActions, phonebookSelectors } from '../../redux/phonebook';
 
 import Filter from './Filter';
 
