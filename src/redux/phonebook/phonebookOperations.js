@@ -3,42 +3,46 @@ import phonebookActions from './phonebookActions';
 
 import Alert from '../../components/Alert';
 
-const addContact = (name, number) => (dispatch, getState) => {
-  dispatch(phonebookActions.addContactStart());
+const fetchContacts = () => async dispatch => {
+  dispatch(phonebookActions.fetchContactStart());
 
+  try {
+    const { data } = await axios.get('/contacts');
+
+    dispatch(phonebookActions.fetchContactSuccess(data));
+  } catch (error) {
+    dispatch(phonebookActions.fetchContactError(error));
+  }
+};
+
+const addContact = contact => (dispatch, getState) => {
+  dispatch(phonebookActions.addContactStart());
   const { phonebook } = getState();
 
-  if (phonebook.contacts.find(contact => contact.name === name)) {
-    Alert(name);
+  if (phonebook.contacts.find(({ name }) => name === contact.name)) {
+    Alert(contact.name);
     return;
   }
 
   axios
-    .post('http://localhost:2000/contacts', { name, number })
-    .then(res => dispatch(phonebookActions.addContactSuccess(res.data)))
+    .post('/contacts', contact)
+    .then(({ data }) => dispatch(phonebookActions.addContactSuccess(data)))
     .catch(err => dispatch(phonebookActions.addContactError(err)));
 };
 
-const removeContact = id => dispatch => {
+const removeContact = contactId => dispatch => {
   dispatch(phonebookActions.removeContactStart());
 
   axios
-    .delete(`http://localhost:2000/contacts/${id}`)
-    .then(() => dispatch(phonebookActions.removeContactSuccess(id)))
-    .catch(err => dispatch(phonebookActions.removeContactError(err)));
-};
-
-const fetchContact = () => dispatch => {
-  dispatch(phonebookActions.fetchContactStart());
-
-  axios
-    .get('http://localhost:2000/contacts/')
-    .then(({ data }) => dispatch(phonebookActions.fetchContactSuccess(data)))
-    .catch(err => dispatch(phonebookActions.fetchContactError(err)));
+    .delete(`/contacts/${contactId}`)
+    .then(() => dispatch(phonebookActions.removeContactSuccess(contactId)))
+    .catch(error =>
+      dispatch(phonebookActions.removeContactError(error.message)),
+    );
 };
 
 export default {
   addContact,
   removeContact,
-  fetchContact,
+  fetchContacts,
 };
